@@ -52,7 +52,7 @@ export const Users: User[] = [
   },
 ];
 
-export const dummyPosts: Post[] = [
+export const Posts: Post[] = [
   {
     id: "p1",
     createdAt: "2025-05-01T09:00:00Z",
