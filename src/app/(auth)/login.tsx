@@ -41,7 +41,7 @@ export default function LoginScreen() {
     <View className="flex-1 items-center justify-center bg-neutral-900 px-6">
       <View className="w-full max-w-sm">
         <Text className="text-3xl font-bold text-center mb-8 text-white">
-          Create an account
+          Welcome Back
         </Text>
 
         <View className="gap-4">
@@ -86,10 +86,10 @@ export default function LoginScreen() {
           </TouchableOpacity>
 
           <View className="flex-row justify-center mt-4">
-            <Text className="text-gray-400">Already have an account? </Text>
+            <Text className="text-gray-400">Don't have an account? </Text>
             <Link href="/signup" asChild>
               <Pressable>
-                <Text className="text-blue-400 font-medium">Sign In</Text>
+                <Text className="text-blue-400 font-medium">Create one</Text>
               </Pressable>
             </Link>
           </View>

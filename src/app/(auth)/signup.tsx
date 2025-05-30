@@ -15,7 +15,7 @@ export default function SignUpScreen() {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleLogin = async () => {
+  const handleSignUp = async () => {
     if (!email || !password) {
       Alert.alert("Please enter an email and password");
       return;
@@ -24,14 +24,18 @@ export default function SignUpScreen() {
     try {
       setIsLoading(true);
 
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
+      const {
+        data: { session },
+        error,
+      } = await supabase.auth.signUp({ email, password });
+
       if (error) Alert.alert(error.message);
+
+      if (!session)
+        Alert.alert("Please check your inbox for email verification!");
     } catch (error) {
       console.error("Login error:", error);
-      Alert.alert("Login error:", error.message);
+      // TODO: Add proper error handling
     } finally {
       setIsLoading(false);
     }
@@ -41,12 +45,12 @@ export default function SignUpScreen() {
     <View className="flex-1 items-center justify-center bg-neutral-900 px-6">
       <View className="w-full max-w-sm">
         <Text className="text-3xl font-bold text-center mb-8 text-white">
-          Welcome Back
+          Create an account
         </Text>
 
         <View className="gap-4">
           <View>
-            <Text className="text-sm font-medium text-neutral-300 mb-1">
+            <Text className="text-sm font-medium text-gray-300 mb-1">
               Email
             </Text>
             <TextInput
@@ -61,7 +65,7 @@ export default function SignUpScreen() {
           </View>
 
           <View>
-            <Text className="text-sm font-medium text-neutral-300 mb-1">
+            <Text className="text-sm font-medium text-gray-300 mb-1">
               Password
             </Text>
             <TextInput
@@ -77,19 +81,19 @@ export default function SignUpScreen() {
           <TouchableOpacity
             className="w-full bg-white py-3 rounded-lg mt-6"
             activeOpacity={0.8}
-            onPress={handleLogin}
+            onPress={handleSignUp}
             disabled={isLoading}
           >
             <Text className="text-black text-center font-semibold">
-              {isLoading ? "Logging in..." : "Sign in"}
+              {isLoading ? "Logging in..." : "Sign up"}
             </Text>
           </TouchableOpacity>
 
           <View className="flex-row justify-center mt-4">
-            <Text className="text-gray-400">Don't have an account? </Text>
+            <Text className="text-gray-400">Already have an account? </Text>
             <Link href="/login" asChild>
               <Pressable>
-                <Text className="text-blue-400 font-medium">Create One</Text>
+                <Text className="text-blue-400 font-medium">Sign in</Text>
               </Pressable>
             </Link>
           </View>
